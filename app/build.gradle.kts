@@ -61,6 +61,10 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+ codex/create-2d-fighting-game-in-kotlin-compose-h0qlgp
+    implementation("com.google.android.material:material:1.12.0")
+=======
+ main
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
