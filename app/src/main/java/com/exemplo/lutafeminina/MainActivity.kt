@@ -7,9 +7,15 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
+
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,9 +25,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.verticalScroll
+
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -101,6 +109,8 @@ fun LutaGameApp() {
         }
     }
 
+
+
     if (!battleStarted) {
         SelectionScreen(
             playerIndex = playerIndex,
@@ -140,27 +150,38 @@ fun SelectionScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF111111))
+
             .verticalScroll(rememberScrollState())
+
+
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         Text("Luta Feminina 2D", color = Color.White, style = MaterialTheme.typography.headlineSmall)
         Text("Escolha personagem, roupa e cenário", color = Color.LightGray)
 
+
         Row(
             modifier = Modifier.horizontalScroll(rememberScrollState()),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+
             fighters.forEachIndexed { index, f ->
                 FighterCard(f, selected = playerIndex == index, onClick = { onPlayerChange(index) })
             }
         }
 
         Text("Adversária", color = Color.White, fontWeight = FontWeight.Bold)
+
         Row(
             modifier = Modifier.horizontalScroll(rememberScrollState()),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+
             fighters.filterIndexed { i, _ -> i != playerIndex }.forEach { f ->
                 val idx = fighters.indexOf(f)
                 FighterCard(f, selected = enemyIndex == idx, onClick = { onEnemyChange(idx) })
@@ -168,24 +189,32 @@ fun SelectionScreen(
         }
 
         Text("Roupa", color = Color.White, fontWeight = FontWeight.Bold)
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState()),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+
             Outfit.entries.forEach {
                 ToggleChip(text = it.label, selected = outfit == it) { onOutfitChange(it) }
             }
         }
 
         Text("Cenário", color = Color.White, fontWeight = FontWeight.Bold)
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState()),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+
             Scenario.entries.forEach {
                 ToggleChip(text = it.label, selected = scenario == it) { onScenarioChange(it) }
             }
@@ -204,7 +233,11 @@ fun FighterCard(fighter: Fighter, selected: Boolean, onClick: () -> Unit) {
         modifier = Modifier
             .width(150.dp)
             .border(if (selected) 2.dp else 0.dp, Color.White, RoundedCornerShape(12.dp))
+
             .clickable { onClick() },
+
+            .pointerInput(Unit) { detectTapGestures(onTap = { onClick() }) },
+
         colors = CardDefaults.cardColors(containerColor = Color(0xFF1F1F1F))
     ) {
         Column(Modifier.padding(8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
